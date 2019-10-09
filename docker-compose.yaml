@@ -1,0 +1,20 @@
+version: '2'
+services:
+
+  chromedriver:
+    image: eperoumalnaik/docker-chrome-selenium:latest
+    privileged: true
+
+  ds:
+#    build: .
+    image: jupyter/datascience-notebook
+    command: start-notebook.sh
+    ports:
+        - "8888:8888"
+    volumes:
+        -  "./data/:/home/jovyan"
+    environment:
+        - GRANT_SUDO=yes
+    user: root
+    links:
+        - chromedriver
